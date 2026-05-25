@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>健身追踪</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fitness Checker">
+<link id="touch-icon" rel="apple-touch-icon">
+<title>Fitness Checker</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
@@ -742,6 +746,75 @@ function confirmDelPhoto(id) {
 // INIT
 // ─────────────────────────────────────────
 render();
+
+// ─────────────────────────────────────────
+// GENERATE HOME SCREEN ICON
+// ─────────────────────────────────────────
+(function() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 512;
+  const ctx = c.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#111112';
+  if (ctx.roundRect) {
+    ctx.beginPath(); ctx.roundRect(0, 0, 512, 512, 90); ctx.fill();
+  } else { ctx.fillRect(0, 0, 512, 512); }
+
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  // ── Figure 1: Dumbbell curl (left) ──
+  const lx = 148;
+  ctx.fillStyle = '#d4f74e';
+  ctx.beginPath(); ctx.arc(lx, 108, 28, 0, Math.PI * 2); ctx.fill();
+
+  ctx.strokeStyle = '#d4f74e'; ctx.lineWidth = 17;
+  // body
+  ctx.beginPath(); ctx.moveTo(lx, 136); ctx.lineTo(lx, 288); ctx.stroke();
+  // right arm down (holding dumbbell)
+  ctx.beginPath(); ctx.moveTo(lx, 182); ctx.lineTo(lx + 52, 228); ctx.stroke();
+  // left arm up (curl)
+  ctx.beginPath(); ctx.moveTo(lx, 182); ctx.lineTo(lx - 42, 150); ctx.lineTo(lx - 20, 112); ctx.stroke();
+  // dumbbell
+  ctx.lineWidth = 13;
+  ctx.beginPath(); ctx.moveTo(lx + 38, 238); ctx.lineTo(lx + 68, 250); ctx.stroke();
+  ctx.fillStyle = '#d4f74e';
+  ctx.beginPath(); ctx.arc(lx + 36, 238, 13, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(lx + 70, 250, 13, 0, Math.PI * 2); ctx.fill();
+  // legs
+  ctx.lineWidth = 17;
+  ctx.beginPath(); ctx.moveTo(lx, 288); ctx.lineTo(lx - 42, 392); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(lx, 288); ctx.lineTo(lx + 42, 392); ctx.stroke();
+
+  // ── Figure 2: Basketball dribble (right) ──
+  const rx = 358;
+  ctx.fillStyle = '#d4f74e';
+  ctx.beginPath(); ctx.arc(rx, 108, 28, 0, Math.PI * 2); ctx.fill();
+
+  ctx.strokeStyle = '#d4f74e'; ctx.lineWidth = 17;
+  // body
+  ctx.beginPath(); ctx.moveTo(rx, 136); ctx.lineTo(rx, 272); ctx.stroke();
+  // right arm dribbling down
+  ctx.beginPath(); ctx.moveTo(rx, 182); ctx.lineTo(rx + 48, 238); ctx.lineTo(rx + 58, 296); ctx.stroke();
+  // left arm out for balance
+  ctx.beginPath(); ctx.moveTo(rx, 182); ctx.lineTo(rx - 54, 212); ctx.stroke();
+  // legs (athletic stance)
+  ctx.beginPath(); ctx.moveTo(rx, 272); ctx.lineTo(rx - 46, 378); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(rx, 272); ctx.lineTo(rx + 36, 382); ctx.stroke();
+
+  // Basketball
+  ctx.fillStyle = '#ff8c00';
+  ctx.beginPath(); ctx.arc(rx + 65, 336, 40, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#b35f00'; ctx.lineWidth = 3.5;
+  ctx.beginPath(); ctx.arc(rx + 65, 336, 40, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(rx + 25, 336); ctx.lineTo(rx + 105, 336); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(rx + 65, 296); ctx.lineTo(rx + 65, 376); ctx.stroke();
+  ctx.beginPath(); ctx.arc(rx + 65, 336, 20, 0, Math.PI); ctx.stroke();
+  ctx.beginPath(); ctx.arc(rx + 65, 336, 20, Math.PI, Math.PI * 2); ctx.stroke();
+
+  document.getElementById('touch-icon').href = c.toDataURL('image/png');
+})();
 </script>
 </body>
 </html>
